@@ -21,6 +21,9 @@ class SplittingAlgorithm():
         self.initialEntropy = self.calculateEntropy(self.dataFrame)
 
     def calculateEntropy(self, subset):
+        """
+        Calcula la entropía de un conjunto del dataset que le llegue por el parámetro subset.
+        """
         totalCount = subset.shape[0]
         positiveCount = subset[subset[self.targetAttribute] == self.trueLabel].count()[1]
         negativeCount = totalCount - positiveCount
