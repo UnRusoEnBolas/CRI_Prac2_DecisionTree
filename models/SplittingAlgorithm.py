@@ -52,7 +52,7 @@ class C4_5SplittingAlgorithm(SplittingAlgorithm):
         Este método encuentra cuál es el atributo por el cuál se deben separar los datos para
         conseguir el mejor ratio de ganancia.
         """
-        for column in ['Wind', 'Outlook']: #self.dataFrame.columns: 
+        for column in self.dataFrame.columns[:-1]: #['Wind', 'Outlook']:  
             entropies = []
             counts = []
             for value in self.dataFrame[column].unique():
@@ -62,4 +62,6 @@ class C4_5SplittingAlgorithm(SplittingAlgorithm):
                 entropies.append(entropy)
             totalCount = np.sum(counts)
             gain = self.initialEntropy - np.sum(np.multiply(np.divide(counts, totalCount), entropies))
-            #Now go for SplitInfo                        
+            splitInfo = -np.sum(np.multiply(np.divide(counts, totalCount), np.log2(np.divide(counts, totalCount))))
+            gainRatio = gain/splitInfo
+            print(f'{column} -> {gainRatio}')                       
