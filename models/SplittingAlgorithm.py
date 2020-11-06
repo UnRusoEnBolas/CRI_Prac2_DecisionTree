@@ -1,4 +1,4 @@
-#ARTICULO PARA PODER SACARLO: https://sefiks.com/2018/05/13/a-step-by-step-c4-5-decision-tree-example/
+#ARTICULO PARA C4.5: https://sefiks.com/2018/05/13/a-step-by-step-c4-5-decision-tree-example/
 import numpy as np
 
 class SplittingAlgorithm():
