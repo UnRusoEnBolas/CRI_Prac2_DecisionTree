@@ -1,4 +1,6 @@
 #ARTICULO PARA C4.5: https://sefiks.com/2018/05/13/a-step-by-step-c4-5-decision-tree-example/
+#ARTICULO PARA ID3: https://nulpointerexception.com/2017/12/16/a-tutorial-to-understand-decision-tree-id3-learning-algorithm/
+
 import numpy as np
 
 class SplittingAlgorithm():
@@ -42,7 +44,7 @@ class SplittingAlgorithm():
 class C4_5SplittingAlgorithm(SplittingAlgorithm):
     """
     Esta clase hereda de la classe base SplittingAlgorithm y es donde se implementa el
-    algoritmo C4.5.
+    algoritmo C4.5 (Proporción de la ganancia).
     """
     def __init__(self, dataFrame, targetAttribute, trueLabel):
         super().__init__(dataFrame, targetAttribute, trueLabel)
@@ -52,6 +54,7 @@ class C4_5SplittingAlgorithm(SplittingAlgorithm):
         Este método encuentra cuál es el atributo por el cuál se deben separar los datos para
         conseguir el mejor ratio de ganancia.
         """
+        gainRatios = []
         for column in self.dataFrame.columns[:-1]: #['Wind', 'Outlook']:  
             entropies = []
             counts = []
@@ -64,4 +67,34 @@ class C4_5SplittingAlgorithm(SplittingAlgorithm):
             gain = self.initialEntropy - np.sum(np.multiply(np.divide(counts, totalCount), entropies))
             splitInfo = -np.sum(np.multiply(np.divide(counts, totalCount), np.log2(np.divide(counts, totalCount))))
             gainRatio = gain/splitInfo
-            print(f'{column} -> {gainRatio}')                       
+            gainRatios.append(gainRatio)
+        return self.dataFrame.columns[np.argmax(gainRatios)]
+
+
+class ID3SplittingAlgorithm(SplittingAlgorithm):
+    """
+    Esta clase hereda de la classe base SplittingAlgorithm y es donde se implementa el
+    algoritmo ID3 (Ganancia de información basado en entropía).
+    """
+    def __init__(self, dataFrame, targetAttribute, trueLabel):
+        super().__init__(dataFrame, targetAttribute, trueLabel)
+    
+    def getSplittingAttribute(self):
+        """
+        Este método encuentra cuál es el atributo por el cuál se deben separar los datos para
+        conseguir la mejor ganancia de información.
+        """
+        gains = []
+        for column in self.dataFrame.columns[:-1]:
+            entropies = []
+            counts = []
+            for value in self.dataFrame[column].unique():
+                subset = self.dataFrame[self.dataFrame[column] == value]
+                counts.append(subset.shape[0])
+                entropy = self.getEntropy(subset)
+                entropies.append(entropy)
+            totalCount = np.sum(counts)
+            informationGain = np.subtract(self.initialEntropy, np.sum(np.multiply(np.divide(counts, totalCount), entropies)))
+            gains.append(informationGain)
+        return self.dataFrame.columns[np.argmax(gains)]
+            
