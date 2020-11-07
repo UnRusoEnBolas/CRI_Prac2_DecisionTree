@@ -49,7 +49,7 @@ class C4_5SplittingAlgorithm(SplittingAlgorithm):
     def __init__(self, dataFrame, targetAttribute, trueLabel):
         super().__init__(dataFrame, targetAttribute, trueLabel)
     
-    def getSplittingAttribute(self):
+    def getSplittingAttribute(self, initialEntropy):
         """
         Este método encuentra cuál es el atributo por el cuál se deben separar los datos para
         conseguir el mejor ratio de ganancia.
