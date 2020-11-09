@@ -1,10 +1,18 @@
 // Graphic representation of the resulting decision tree
 digraph {
-	Outlook [label=Outlook]
-	Humidity [label=Humidity]
-	Outlook -> Humidity
-	Yes [label=Yes]
-	Outlook -> Yes
-	Wind [label=Wind]
-	Outlook -> Wind
+	"478c76e6-d01a-4e94-b75d-acd2bb7e4c87" [label=Outlook]
+	"d8526ea0-60cc-4724-bacc-ac89a4255169" [label=Humidity]
+	"478c76e6-d01a-4e94-b75d-acd2bb7e4c87" -> "d8526ea0-60cc-4724-bacc-ac89a4255169"
+	"4389454d-f0c0-4fdd-92e2-626f30992b02" [label=No]
+	"d8526ea0-60cc-4724-bacc-ac89a4255169" -> "4389454d-f0c0-4fdd-92e2-626f30992b02"
+	"4d65e822-23fd-47a2-82c2-5c776204dbdd" [label=Yes]
+	"d8526ea0-60cc-4724-bacc-ac89a4255169" -> "4d65e822-23fd-47a2-82c2-5c776204dbdd"
+	"59acb1bd-4dd6-4588-9e89-681d9012aee4" [label=Yes]
+	"478c76e6-d01a-4e94-b75d-acd2bb7e4c87" -> "59acb1bd-4dd6-4588-9e89-681d9012aee4"
+	"062c532f-bdf0-45f1-981a-dbe3e8ca98c7" [label=Wind]
+	"478c76e6-d01a-4e94-b75d-acd2bb7e4c87" -> "062c532f-bdf0-45f1-981a-dbe3e8ca98c7"
+	"9ed584bf-c462-40c8-8241-8b3679cfb425" [label=Yes]
+	"062c532f-bdf0-45f1-981a-dbe3e8ca98c7" -> "9ed584bf-c462-40c8-8241-8b3679cfb425"
+	"b4a75714-2255-433d-88ed-3d9579cbe4e2" [label=No]
+	"062c532f-bdf0-45f1-981a-dbe3e8ca98c7" -> "b4a75714-2255-433d-88ed-3d9579cbe4e2"
 }

@@ -22,12 +22,22 @@ class DecisionTree():
 
     def visualize(self):
         dot = Digraph(comment="Graphic representation of the resulting decision tree", format='png')
-        dot.node(self.rootNode.splittingAttribute, self.rootNode.splittingAttribute)
-        for childNode in self.rootNode.childrenNodes:
-            childSplitAttr = childNode.prediction if childNode.isLeaf else childNode.splittingAttribute
-            dot.node(childSplitAttr, childSplitAttr)
-            dot.edge(self.rootNode.splittingAttribute, childSplitAttr)
+        self.buildVisualization(dot, None, self.rootNode)
         dot.render('./outputs/graphOutputs/0.gv', view=True)
 
-
-        
+    def buildVisualization(self, dot, previousNode, currentNode):
+        if currentNode.isRoot:
+            dot.node(currentNode.uuid, currentNode.splittingAttribute)
+            for childNode in currentNode.childrenNodes:
+                self.buildVisualization(dot, currentNode, childNode)
+        elif currentNode.isLeaf:
+            dot.node(currentNode.uuid, currentNode.prediction)
+            dot.edge(previousNode.uuid, currentNode.uuid)
+            return
+        else:
+            childrenNodes = currentNode.getChildrenNodes()
+            dot.node(currentNode.uuid, currentNode.splittingAttribute)
+            dot.edge(previousNode.uuid, currentNode.uuid)
+            for childNode in childrenNodes:
+                self.buildVisualization(dot, currentNode, childNode)
+            return

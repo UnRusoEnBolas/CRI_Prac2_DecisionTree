@@ -1,7 +1,9 @@
 from models.SplittingAlgorithm import C4_5SplittingAlgorithm, ID3SplittingAlgorithm
+import uuid
 
 class DecisionTreeNode():
     def __init__(self, decisionTree, dataFrame, parentNode, splittingValue, isRoot=False, isLeaf=False):
+        self.uuid = str(uuid.uuid4())
         self.decisionTree = decisionTree
         self.dataFrame = dataFrame
         self.parentNode = parentNode
