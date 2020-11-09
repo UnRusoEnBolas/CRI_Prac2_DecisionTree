@@ -21,7 +21,7 @@ class DecisionTreeNode():
             self.splittingAlgorithm = C4_5SplittingAlgorithm(self.dataFrame, self.decisionTree.targetAttribute, self.decisionTree.trueLabel)
 
         self.childrenNodes = []
-        
+        self.depth = 0 if self.isRoot else self.parentNode.depth+1
         
     
     def getChildrenNodes(self):
