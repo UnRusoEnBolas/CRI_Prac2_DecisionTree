@@ -22,22 +22,22 @@ class DecisionTree():
 
     def visualize(self):
         dot = Digraph(comment="Graphic representation of the resulting decision tree", format='png')
-        self.buildVisualization(dot, None, self.rootNode)
+        self.__buildVisualization(dot, None, self.rootNode)
         dot.render('./outputs/graphOutputs/0.gv', view=True)
 
-    def buildVisualization(self, dot, previousNode, currentNode):
+    def __buildVisualization(self, dot, previousNode, currentNode):
         if currentNode.isRoot:
-            dot.node(currentNode.uuid, currentNode.splittingAttribute)
+            dot.node(currentNode.uuid, currentNode.splittingAttribute, shape="box")
             for childNode in currentNode.childrenNodes:
-                self.buildVisualization(dot, currentNode, childNode)
+                self.__buildVisualization(dot, currentNode, childNode)
         elif currentNode.isLeaf:
-            dot.node(currentNode.uuid, currentNode.prediction)
-            dot.edge(previousNode.uuid, currentNode.uuid)
+            dot.node(currentNode.uuid, currentNode.prediction, shape="ellipse")
+            dot.edge(previousNode.uuid, currentNode.uuid, label=currentNode.splittingValue)
             return
         else:
             childrenNodes = currentNode.getChildrenNodes()
-            dot.node(currentNode.uuid, currentNode.splittingAttribute)
-            dot.edge(previousNode.uuid, currentNode.uuid)
+            dot.node(currentNode.uuid, currentNode.splittingAttribute, shape="box")
+            dot.edge(previousNode.uuid, currentNode.uuid, label=currentNode.splittingValue)
             for childNode in childrenNodes:
-                self.buildVisualization(dot, currentNode, childNode)
+                self.__buildVisualization(dot, currentNode, childNode)
             return
