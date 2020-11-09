@@ -1,6 +1,6 @@
 from models.DecisionTree import DecisionTree
-from models.SplittingAlgorithm import C4_5SplittingAlgorithm, ID3SplittingAlgorithm, SplittingAlgorithm
 import pandas as pd
+pd.options.mode.chained_assignment = None
 
 '''
 testDataset = pd.read_csv('data/testDataset/continuousTestData.csv')
@@ -21,5 +21,8 @@ print(sa.getSplittingAttribute())
 testDataset = pd.read_csv('data/testDataset/categoricalTestData.csv')
 yColumn = 'Decision'
 
-decisionTree = DecisionTree(testDataset, yColumn, 'Yes', 'ID3')
-print(decisionTree.rootNode.generateChildren())
+decisionTreeID3 = DecisionTree(testDataset, yColumn, 'Yes', 'ID3')
+decisionTreeID3.generate()
+
+decisionTreeC45 = DecisionTree(testDataset, yColumn, 'Yes', 'C4.5')
+decisionTreeC45.generate()
