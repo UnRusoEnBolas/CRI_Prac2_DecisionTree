@@ -8,6 +8,8 @@ trueValue = 'Yes'
 
 decisionTreeID3 = DecisionTree(testDataset, yColumn, trueValue, 'ID3')
 decisionTreeID3.generate()
+decisionTreeID3.visualize()
 
 decisionTreeC45 = DecisionTree(testDataset, yColumn, trueValue, 'C4.5')
 decisionTreeC45.generate()
+decisionTreeC45.visualize()

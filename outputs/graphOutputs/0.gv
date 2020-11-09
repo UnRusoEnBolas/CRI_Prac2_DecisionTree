@@ -1,0 +1,10 @@
+// Graphic representation of the resulting decision tree
+digraph {
+	Outlook [label=Outlook]
+	Humidity [label=Humidity]
+	Outlook -> Humidity
+	Yes [label=Yes]
+	Outlook -> Yes
+	Wind [label=Wind]
+	Outlook -> Wind
+}
