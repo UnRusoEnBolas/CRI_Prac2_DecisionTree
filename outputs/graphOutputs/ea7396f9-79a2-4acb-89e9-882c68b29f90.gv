@@ -1,0 +1,18 @@
+// Graphic representation of the resulting decision tree
+digraph {
+	"d1846ca3-e72e-4b45-97a5-2f9d65c605ba" [label=Outlook shape=box]
+	"39ed84db-8888-4a77-a8be-b99e6a197c17" [label=Humidity shape=box]
+	"d1846ca3-e72e-4b45-97a5-2f9d65c605ba" -> "39ed84db-8888-4a77-a8be-b99e6a197c17" [label=Sunny]
+	"43c06f82-71a8-4d09-aca3-c671d2b2d612" [label=No shape=ellipse]
+	"39ed84db-8888-4a77-a8be-b99e6a197c17" -> "43c06f82-71a8-4d09-aca3-c671d2b2d612" [label=High]
+	"509a8d8d-3e81-41ec-8fc0-d48b4a5b7e94" [label=Yes shape=ellipse]
+	"39ed84db-8888-4a77-a8be-b99e6a197c17" -> "509a8d8d-3e81-41ec-8fc0-d48b4a5b7e94" [label=Normal]
+	"b700c909-f6d0-4a5a-a61a-079e8c03ecaf" [label=Yes shape=ellipse]
+	"d1846ca3-e72e-4b45-97a5-2f9d65c605ba" -> "b700c909-f6d0-4a5a-a61a-079e8c03ecaf" [label=Overcast]
+	"fa386305-24b5-4be8-93d4-17bf794e1f6f" [label=Wind shape=box]
+	"d1846ca3-e72e-4b45-97a5-2f9d65c605ba" -> "fa386305-24b5-4be8-93d4-17bf794e1f6f" [label=Rain]
+	"296bbb9b-132f-4083-904b-9f2ab67316cc" [label=Yes shape=ellipse]
+	"fa386305-24b5-4be8-93d4-17bf794e1f6f" -> "296bbb9b-132f-4083-904b-9f2ab67316cc" [label=Weak]
+	"5b258ce2-7e52-4d26-a6ed-dce156f5e4c6" [label=No shape=ellipse]
+	"fa386305-24b5-4be8-93d4-17bf794e1f6f" -> "5b258ce2-7e52-4d26-a6ed-dce156f5e4c6" [label=Strong]
+}

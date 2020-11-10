@@ -28,7 +28,10 @@ class SplittingAlgorithm():
         que recibe por el parámetro subset.
         """
         totalCount = subset.shape[0]
-        positiveCount = subset[subset[self.targetAttribute] == self.trueLabel].count()[1]
+        try:
+            positiveCount = subset[subset[self.targetAttribute] == self.trueLabel].count()[1]
+        except:
+            positiveCount = 0
         negativeCount = totalCount - positiveCount
         positiveProbability = np.divide(positiveCount, totalCount)
         negativeProbability = np.divide(negativeCount, totalCount)
@@ -43,7 +46,7 @@ class SplittingAlgorithm():
 
 class C4_5SplittingAlgorithm(SplittingAlgorithm):
     """
-    Esta clase hereda de la classe base SplittingAlgorithm y es donde se implementa el
+    Esta clase hereda de la clase base SplittingAlgorithm y es donde se implementa el
     algoritmo C4.5 (Proporción de la ganancia).
     """
     def __init__(self, dataFrame, targetAttribute, trueLabel):
@@ -73,7 +76,7 @@ class C4_5SplittingAlgorithm(SplittingAlgorithm):
 
 class ID3SplittingAlgorithm(SplittingAlgorithm):
     """
-    Esta clase hereda de la classe base SplittingAlgorithm y es donde se implementa el
+    Esta clase hereda de la clase base SplittingAlgorithm y es donde se implementa el
     algoritmo ID3 (Ganancia de información basado en entropía).
     """
     def __init__(self, dataFrame, targetAttribute, trueLabel):
@@ -97,4 +100,29 @@ class ID3SplittingAlgorithm(SplittingAlgorithm):
             informationGain = np.subtract(self.initialEntropy, np.sum(np.multiply(np.divide(counts, totalCount), entropies)))
             gains.append(informationGain)
         return self.dataFrame.columns[np.argmax(gains)]
-            
+
+class GiniSplittingAlgorithm(SplittingAlgorithm):
+    """
+    Esta clase hereda de la clase base SplittingAlgorithm y es donde se implementa el
+    algoritmo Gini.
+    """
+    def __init__(self, dataFrame, targetAttribute, trueLabel):
+        super().__init__(dataFrame, targetAttribute, trueLabel)
+    
+    def getSplittingAttribute(self):
+        "Este método encuentra cuál es el atributo por el cuál se debe separar los datos"
+        giniIndexes = []
+        for column in self.dataFrame.columns[:-1]:
+            giniSubindexes = []
+            counts = []
+            for value in self.dataFrame[column].unique():
+                generalSubset = self.dataFrame[self.dataFrame[column] == value]
+                counts.append(generalSubset.shape[0])
+                positiveSubset = generalSubset[generalSubset[self.targetAttribute] == self.trueLabel]
+                negativeSubset = generalSubset[generalSubset[self.targetAttribute] != self.trueLabel]
+                giniSubindex = np.subtract(1, np.add(np.square(np.divide(positiveSubset.shape[0], generalSubset.shape[0])),np.square(np.divide(negativeSubset.shape[0], generalSubset.shape[0]))))
+                giniSubindexes.append(giniSubindex)
+            totalCount = np.sum(counts)
+            giniIndex = np.sum(np.multiply(giniSubindexes, np.divide(counts, totalCount)))
+            giniIndexes.append(giniIndex)
+        return self.dataFrame.columns[np.argmin(giniIndexes)]

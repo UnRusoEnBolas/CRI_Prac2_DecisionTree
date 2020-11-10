@@ -1,0 +1,19 @@
+// Graphic representation of the resulting decision tree
+digraph {
+	label="Using C4.5 split criterion"
+	"c4dae6ee-fd93-4890-b329-9dbb6264a88e" [label=Outlook shape=box]
+	"e890515d-1e1f-4bf9-866f-5a8b79fbe445" [label=Humidity shape=box]
+	"c4dae6ee-fd93-4890-b329-9dbb6264a88e" -> "e890515d-1e1f-4bf9-866f-5a8b79fbe445" [label=Sunny]
+	"6a3722f3-5e92-4fc1-873d-5423e0ea3cd5" [label=No shape=ellipse]
+	"e890515d-1e1f-4bf9-866f-5a8b79fbe445" -> "6a3722f3-5e92-4fc1-873d-5423e0ea3cd5" [label=High]
+	"2713191c-0339-4565-8502-b948a38e4602" [label=Yes shape=ellipse]
+	"e890515d-1e1f-4bf9-866f-5a8b79fbe445" -> "2713191c-0339-4565-8502-b948a38e4602" [label=Normal]
+	"0e35f4ee-4d06-49fb-bf93-a95dce56abec" [label=Yes shape=ellipse]
+	"c4dae6ee-fd93-4890-b329-9dbb6264a88e" -> "0e35f4ee-4d06-49fb-bf93-a95dce56abec" [label=Overcast]
+	"e1608777-073b-4aec-96a1-a462c4b66535" [label=Wind shape=box]
+	"c4dae6ee-fd93-4890-b329-9dbb6264a88e" -> "e1608777-073b-4aec-96a1-a462c4b66535" [label=Rain]
+	"c5dc6ccc-9cfc-474d-880f-d4a3368c2f17" [label=Yes shape=ellipse]
+	"e1608777-073b-4aec-96a1-a462c4b66535" -> "c5dc6ccc-9cfc-474d-880f-d4a3368c2f17" [label=Weak]
+	"dc655bec-6a05-415f-ba43-5dd11bc46205" [label=No shape=ellipse]
+	"e1608777-073b-4aec-96a1-a462c4b66535" -> "dc655bec-6a05-415f-ba43-5dd11bc46205" [label=Strong]
+}

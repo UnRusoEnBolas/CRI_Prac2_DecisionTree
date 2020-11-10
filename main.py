@@ -8,10 +8,12 @@ trueValue = 'Yes'
 
 decisionTreeID3 = DecisionTree(testDataset, yColumn, trueValue, 'ID3')
 decisionTreeID3.generate()
-decisionTreeID3.visualize()
+decisionTreeID3.visualize(title="Using ID3 split criterion")
 
-'''
 decisionTreeC45 = DecisionTree(testDataset, yColumn, trueValue, 'C4.5')
 decisionTreeC45.generate()
-decisionTreeC45.visualize()
-'''
+decisionTreeC45.visualize(title="Using C4.5 split criterion")
+
+decisionTreeGini = DecisionTree(testDataset, yColumn, trueValue, 'Gini')
+decisionTreeGini.generate()
+decisionTreeGini.visualize(title="Using Gini split criterion")
