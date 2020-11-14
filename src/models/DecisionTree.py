@@ -47,7 +47,7 @@ class DecisionTree():
         dot = Digraph(comment="Graphic representation of the resulting decision tree", format='png')
         dot.attr(label=title)
         self.__buildVisualization(dot, None, self.rootNode)
-        dot.render(f'./outputs/graphOutputs/{str(uuid.uuid4())}.gv', view=True)
+        dot.render(f'../outputs/graphOutputs/{str(uuid.uuid4())}.gv', view=True)
 
     def __buildVisualization(self, dot, previousNode, currentNode):
         if currentNode.isRoot:
