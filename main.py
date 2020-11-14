@@ -1,8 +1,13 @@
 from models.DecisionTree import DecisionTree
+from modules.DatasetModifications import discretizeDataframe, deleteRowsWithValues
 import pandas as pd
 pd.options.mode.chained_assignment = None
 
-testDataset = pd.read_csv('data/testDataset/categoricalTestData.csv')
+testDataset = pd.read_csv('data/testDataset/continuous+unknownTestData.csv')
+continuousColumns = ['Temp', 'Humidity']
+nbins = 4
+testDataset = discretizeDataframe(testDataset, continuousColumns, nbins)
+testDataset = deleteRowsWithValues(testDataset, 'unknown')
 yColumn = 'Decision'
 trueValue = 'Yes'
 

@@ -1,0 +1,23 @@
+// Graphic representation of the resulting decision tree
+digraph {
+	label="Using Gini split criterion"
+	"4d3b3964-a4a1-4a9f-8713-80515d08c78a" [label=Outlook shape=box]
+	"4db9bf96-2f96-4179-a1b6-2d7b64a93051" [label=Temp shape=box]
+	"4d3b3964-a4a1-4a9f-8713-80515d08c78a" -> "4db9bf96-2f96-4179-a1b6-2d7b64a93051" [label=Sunny]
+	"5eb5c12e-8f25-46cb-81a3-9fb02442f686" [label=No shape=ellipse]
+	"4db9bf96-2f96-4179-a1b6-2d7b64a93051" -> "5eb5c12e-8f25-46cb-81a3-9fb02442f686" [label="(78.75, 85.0]"]
+	"f2c7ffc5-4f18-466e-98e0-82dacb0ad82f" [label=No shape=ellipse]
+	"4db9bf96-2f96-4179-a1b6-2d7b64a93051" -> "f2c7ffc5-4f18-466e-98e0-82dacb0ad82f" [label="(69.25, 72.0]"]
+	"986f15e1-cea1-40c0-8887-67422c3496c7" [label=Yes shape=ellipse]
+	"4db9bf96-2f96-4179-a1b6-2d7b64a93051" -> "986f15e1-cea1-40c0-8887-67422c3496c7" [label="(63.999, 69.25]"]
+	"c7e0bd06-583b-4737-9f45-eefda2ee0feb" [label=Yes shape=ellipse]
+	"4db9bf96-2f96-4179-a1b6-2d7b64a93051" -> "c7e0bd06-583b-4737-9f45-eefda2ee0feb" [label="(72.0, 78.75]"]
+	"cddce264-2cf3-499d-a028-f27e2f8de5b1" [label=Yes shape=ellipse]
+	"4d3b3964-a4a1-4a9f-8713-80515d08c78a" -> "cddce264-2cf3-499d-a028-f27e2f8de5b1" [label=Overcast]
+	"dad592f7-b5bd-466e-bdb7-e25bf10c0afa" [label=Wind shape=box]
+	"4d3b3964-a4a1-4a9f-8713-80515d08c78a" -> "dad592f7-b5bd-466e-bdb7-e25bf10c0afa" [label=Rain]
+	"1c3c0ef7-5a36-47ae-ba1e-2602da6782da" [label=Yes shape=ellipse]
+	"dad592f7-b5bd-466e-bdb7-e25bf10c0afa" -> "1c3c0ef7-5a36-47ae-ba1e-2602da6782da" [label=Weak]
+	"aaa7b240-1ed2-46f3-966b-8e06ef3ab0f8" [label=No shape=ellipse]
+	"dad592f7-b5bd-466e-bdb7-e25bf10c0afa" -> "aaa7b240-1ed2-46f3-966b-8e06ef3ab0f8" [label=Strong]
+}

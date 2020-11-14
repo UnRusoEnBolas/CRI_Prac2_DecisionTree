@@ -1,0 +1,25 @@
+// Graphic representation of the resulting decision tree
+digraph {
+	label="Using Gini split criterion"
+	"39e6676b-4eb6-4de0-b495-14931a275af9" [label=Humidity shape=box]
+	"ba8076ab-6dbc-4656-aade-9135077c4f30" [label=No shape=ellipse]
+	"39e6676b-4eb6-4de0-b495-14931a275af9" -> "ba8076ab-6dbc-4656-aade-9135077c4f30" [label="(80.0, 88.75]"]
+	"e31df3fb-ddc1-4a0b-b8f9-96b0d2ccba25" [label=Yes shape=ellipse]
+	"39e6676b-4eb6-4de0-b495-14931a275af9" -> "e31df3fb-ddc1-4a0b-b8f9-96b0d2ccba25" [label="(71.25, 80.0]"]
+	"76992295-352e-4827-89e3-9fde6002298e" [label=Outlook shape=box]
+	"39e6676b-4eb6-4de0-b495-14931a275af9" -> "76992295-352e-4827-89e3-9fde6002298e" [label="(88.75, 96.0]"]
+	"0c0eb12c-d191-472c-ae0c-5a4bb2167fd6" [label=Yes shape=ellipse]
+	"76992295-352e-4827-89e3-9fde6002298e" -> "0c0eb12c-d191-472c-ae0c-5a4bb2167fd6" [label=Rain]
+	"88d03919-7d69-4c33-9f79-afdd728db6ea" [label=No shape=ellipse]
+	"76992295-352e-4827-89e3-9fde6002298e" -> "88d03919-7d69-4c33-9f79-afdd728db6ea" [label=Sunny]
+	"ec124d72-fff9-4dfa-a370-5078728b1db1" [label=Yes shape=ellipse]
+	"76992295-352e-4827-89e3-9fde6002298e" -> "ec124d72-fff9-4dfa-a370-5078728b1db1" [label=Overcast]
+	"72bbf428-20a7-4c01-af09-5e0a37f6b2c3" [label=Outlook shape=box]
+	"39e6676b-4eb6-4de0-b495-14931a275af9" -> "72bbf428-20a7-4c01-af09-5e0a37f6b2c3" [label="(64.999, 71.25]"]
+	"11a451cc-1556-44aa-a03a-41ec8fcfb84b" [label=No shape=ellipse]
+	"72bbf428-20a7-4c01-af09-5e0a37f6b2c3" -> "11a451cc-1556-44aa-a03a-41ec8fcfb84b" [label=Rain]
+	"3bb4eaa8-ec34-4413-9a94-22fcdb9a9ce8" [label=Yes shape=ellipse]
+	"72bbf428-20a7-4c01-af09-5e0a37f6b2c3" -> "3bb4eaa8-ec34-4413-9a94-22fcdb9a9ce8" [label=Overcast]
+	"ec6bc237-45e4-4970-9ce0-877b37d4c62f" [label=Yes shape=ellipse]
+	"72bbf428-20a7-4c01-af09-5e0a37f6b2c3" -> "ec6bc237-45e4-4970-9ce0-877b37d4c62f" [label=Sunny]
+}

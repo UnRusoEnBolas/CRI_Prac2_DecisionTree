@@ -1,0 +1,27 @@
+// Graphic representation of the resulting decision tree
+digraph {
+	label="Using C4.5 split criterion"
+	"d6e494f4-3d9d-433c-9a66-c34c32ba1ca3" [label=Humidity shape=box]
+	"3bac407a-b75e-4d68-9446-6665ec01a056" [label=No shape=ellipse]
+	"d6e494f4-3d9d-433c-9a66-c34c32ba1ca3" -> "3bac407a-b75e-4d68-9446-6665ec01a056" [label="(80.0, 88.75]"]
+	"4bc025bf-1314-49f9-8fc2-4244f50b86b0" [label=Yes shape=ellipse]
+	"d6e494f4-3d9d-433c-9a66-c34c32ba1ca3" -> "4bc025bf-1314-49f9-8fc2-4244f50b86b0" [label="(71.25, 80.0]"]
+	"a98b5e70-260e-4c13-beaa-ebc9a827f91f" [label=Temp shape=box]
+	"d6e494f4-3d9d-433c-9a66-c34c32ba1ca3" -> "a98b5e70-260e-4c13-beaa-ebc9a827f91f" [label="(88.75, 96.0]"]
+	"c9b5eac3-b2f2-4372-ac90-42d0d531c0f5" [label=Outlook shape=box]
+	"a98b5e70-260e-4c13-beaa-ebc9a827f91f" -> "c9b5eac3-b2f2-4372-ac90-42d0d531c0f5" [label="(69.25, 72.0]"]
+	"7695888f-e4cb-417c-953a-016a23a44488" [label=Yes shape=ellipse]
+	"c9b5eac3-b2f2-4372-ac90-42d0d531c0f5" -> "7695888f-e4cb-417c-953a-016a23a44488" [label=Rain]
+	"e3f590ca-22d5-4ceb-a021-4a7d3554638e" [label=No shape=ellipse]
+	"c9b5eac3-b2f2-4372-ac90-42d0d531c0f5" -> "e3f590ca-22d5-4ceb-a021-4a7d3554638e" [label=Sunny]
+	"1a56333e-6c9b-4e8e-865e-4f758ba22132" [label=Yes shape=ellipse]
+	"c9b5eac3-b2f2-4372-ac90-42d0d531c0f5" -> "1a56333e-6c9b-4e8e-865e-4f758ba22132" [label=Overcast]
+	"eb5d880f-21a0-4bd3-b8f0-ddaae43e67ba" [label=Outlook shape=box]
+	"d6e494f4-3d9d-433c-9a66-c34c32ba1ca3" -> "eb5d880f-21a0-4bd3-b8f0-ddaae43e67ba" [label="(64.999, 71.25]"]
+	"d34cb487-c9e3-4b99-bce7-5ab0868e7242" [label=No shape=ellipse]
+	"eb5d880f-21a0-4bd3-b8f0-ddaae43e67ba" -> "d34cb487-c9e3-4b99-bce7-5ab0868e7242" [label=Rain]
+	"ba1c7911-8fea-4c61-9e12-6e77679cb200" [label=Yes shape=ellipse]
+	"eb5d880f-21a0-4bd3-b8f0-ddaae43e67ba" -> "ba1c7911-8fea-4c61-9e12-6e77679cb200" [label=Overcast]
+	"056c58db-4fcd-4524-9a2a-3e76d214b770" [label=Yes shape=ellipse]
+	"eb5d880f-21a0-4bd3-b8f0-ddaae43e67ba" -> "056c58db-4fcd-4524-9a2a-3e76d214b770" [label=Sunny]
+}
