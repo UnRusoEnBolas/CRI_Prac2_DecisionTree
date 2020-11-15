@@ -2,6 +2,7 @@ import numpy as np
 from models.DecisionTreeNode import DecisionTreeNode
 from graphviz import Digraph
 import uuid
+import json
 
 from models.SplittingAlgorithm import SplittingAlgorithm
 
@@ -67,7 +68,7 @@ class DecisionTree():
         dot = Digraph(comment="Graphic representation of the resulting decision tree", format='png')
         dot.attr(label=title)
         self.__buildVisualization(dot, None, self.rootNode)
-        dot.render(f'../outputs/graphOutputs/{str(uuid.uuid4())}.gv', view=True)
+        dot.render(f'./outputs/graphOutputs/{str(uuid.uuid4())}.gv', view=True)
 
     def __buildVisualization(self, dot, previousNode, currentNode):
         if currentNode.isRoot:
@@ -86,6 +87,8 @@ class DecisionTree():
                 self.__buildVisualization(dot, currentNode, childNode)
             return
     
-    def saveToFile(self, path):
-        print("Nothing yet")
+    def saveToFile(self, fileName):
+        file = open(f'./outputs/modelsOutputs/{fileName}.json', 'w+')
+        json.dump(self.rootNode.toJSON(), file)
+        file.close()
 

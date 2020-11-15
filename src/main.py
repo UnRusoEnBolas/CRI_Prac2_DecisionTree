@@ -4,6 +4,7 @@ import pandas as pd
 from sklearn.metrics import classification_report
 pd.options.mode.chained_assignment = None
 
+'''
 data = pd.read_csv('finalAdvertismentsDataset.csv')
 yColumnName = 'class'
 trueValue = 1
@@ -20,9 +21,9 @@ tree1.visualize(title="Using ID3 split criterion")
 predictions = tree1.predict(testData)
 
 print(classification_report(testData[yColumnName], predictions))
-
 '''
 
+'''
 tree2 = DecisionTree(trainData, yColumn, trueValue, 'C4.5', maxDepth=5)
 tree2.generate()
 tree2.visualize(title="Using C4.5 split criterion")
@@ -32,7 +33,7 @@ tree3.generate()
 tree3.visualize(title="Using Gini split criterion")
 '''
 
-'''
+
 data = pd.read_csv('data/testDataset/continuousTestData.csv')
 continuousColumns = ['Temp', 'Humidity']
 nbins = 4
@@ -49,5 +50,6 @@ decisionTreeID3.generate()
 decisionTreeID3.visualize(title="ID3 Play tennis dataset")
 predictions = decisionTreeID3.predict(testData)
 
-print(classification_report(testData[yColumn], predictions, target_names=data[yColumn].unique()))
-'''
+
+print(classification_report(testData[yColumn], predictions))
+decisionTreeID3.saveToFile('ID3PlayTennisDepth2')

@@ -49,5 +49,23 @@ class DecisionTreeNode():
     def toJSON(self):
         node = {}
         node['uuid'] = str(self.uuid)
+        node['depth'] = str(self.depth)
+        node['parent_uuid'] = str(self.parentNode.uuid) if self.parentNode != None else ''
+        node['splittingValue'] = str(self.splittingValue) if self.splittingValue != None else ''
+        node['splittingAttirbute'] = str(self.splittingAttribute) if self.splittingAttribute != None else ''
+        node['children'] = []
+        if self.isLeaf:
+            node['isLeaf'] = str(True)
+            return node
+        else:
+            node['isLeaf'] = str(False)
+            node['children'] = []
+            for child in self.childrenNodes:
+                node['children'].append(child.toJSON())
+        return node
+
+
+       
+        
 
 
