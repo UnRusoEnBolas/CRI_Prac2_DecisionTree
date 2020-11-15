@@ -1,21 +1,36 @@
 from models.DecisionTree import DecisionTree
-from modules.DatasetModifications import discretizeDataframe, deleteRowsWithValues
+from modules.misc import discretizeDataframe, deleteRowsWithValues, train_test_split
 import pandas as pd
+from sklearn.metrics import classification_report
 pd.options.mode.chained_assignment = None
 
 data = pd.read_csv('finalAdvertismentsDataset.csv')
+yColumnName = 'class'
+trueValue = 1
+falseValue = 0
 continuousColumns = ['height', 'width', 'aratio']
 nbins = 4
 data = deleteRowsWithValues(data, 'unknown')
 data = discretizeDataframe(data, continuousColumns, nbins)
-yColumn = 'class'
-trueValue = 1
+trainData, testData = train_test_split(data, 0.35)
 
+tree1 = DecisionTree(trainData, yColumnName, trueValue, falseValue, 'ID3', maxDepth=5)
+tree1.generate()
+tree1.visualize(title="Using ID3 split criterion")
+predictions = tree1.predict(testData)
 
-print('Starting tree...')
-decisionTreeID3 = DecisionTree(data, yColumn, trueValue, 'ID3', maxDepth=1)
-decisionTreeID3.generate()
-decisionTreeID3.visualize(title="Using C4.5 split criterion")
+print(classification_report(testData[yColumnName], predictions))
+
+'''
+
+tree2 = DecisionTree(trainData, yColumn, trueValue, 'C4.5', maxDepth=5)
+tree2.generate()
+tree2.visualize(title="Using C4.5 split criterion")
+
+tree3 = DecisionTree(trainData, yColumn, trueValue, 'Gini', maxDepth=5)
+tree3.generate()
+tree3.visualize(title="Using Gini split criterion")
+'''
 
 '''
 data = pd.read_csv('data/testDataset/continuousTestData.csv')
@@ -24,8 +39,15 @@ nbins = 4
 data = discretizeDataframe(data, continuousColumns, nbins)
 yColumn = 'Decision'
 trueValue = 'Yes'
+falseValue = 'No'
 
-decisionTreeID3 = DecisionTree(data, yColumn, trueValue, 'ID3', maxDepth=1)
+trainData, testData = train_test_split(data, 0.3)
+print(f'Registros de train: {trainData.shape}, registros de test: {testData.shape}')
+
+decisionTreeID3 = DecisionTree(data, yColumn, trueValue, falseValue, 'ID3', maxDepth=2)
 decisionTreeID3.generate()
 decisionTreeID3.visualize(title="ID3 Play tennis dataset")
+predictions = decisionTreeID3.predict(testData)
+
+print(classification_report(testData[yColumn], predictions, target_names=data[yColumn].unique()))
 '''

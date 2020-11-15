@@ -46,4 +46,8 @@ class DecisionTreeNode():
             childNodes.append(DecisionTreeNode(self.decisionTree, subset, self, value, isLeaf=isLeaf))
         return childNodes
 
+    def toJSON(self):
+        node = {}
+        node['uuid'] = str(self.uuid)
+
 

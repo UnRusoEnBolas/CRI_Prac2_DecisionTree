@@ -22,3 +22,17 @@ def deleteRowsWithValues(dataframe, value):
         dataframe = dataframe[dataframe[column] != value]
         dataframe[column] = dataframe[column].astype("float64")
     return dataframe
+
+def train_test_split(dataframe, testRatio):
+    """
+    Esta función sirve para partir el dataset en las partes de train y test.
+    dataframe: Dataframe de pandas que contiene todos los registros.
+    testRatio: ratio de instancias de test deseadas.
+    """
+    nInstances = dataframe.shape[0]
+    nTestInstances = int(round(nInstances*testRatio))
+    nTrainInstances = nInstances - nTestInstances
+    dataframe = dataframe.sample(n=nInstances).reset_index(drop=True)
+    train = dataframe.iloc[0:nTrainInstances, :]
+    test = dataframe.iloc[nTrainInstances:nTrainInstances+nTestInstances, :]
+    return train, test

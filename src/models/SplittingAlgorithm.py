@@ -70,7 +70,7 @@ class C4_5SplittingAlgorithm(SplittingAlgorithm):
             totalCount = np.sum(counts)
             gain = self.initialEntropy - np.sum(np.multiply(np.divide(counts, totalCount), entropies))
             splitInfo = -np.sum(np.multiply(np.divide(counts, totalCount), np.log2(np.divide(counts, totalCount))))
-            gainRatio = gain/splitInfo
+            gainRatio = gain/splitInfo if splitInfo != 0 else 0
             gainRatios.append(gainRatio)
         return self.dataFrame.columns[np.argmax(gainRatios)]
 

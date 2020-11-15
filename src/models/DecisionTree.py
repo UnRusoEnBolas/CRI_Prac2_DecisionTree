@@ -1,6 +1,9 @@
+import numpy as np
 from models.DecisionTreeNode import DecisionTreeNode
 from graphviz import Digraph
 import uuid
+
+from models.SplittingAlgorithm import SplittingAlgorithm
 
 class DecisionTree():
     """
@@ -8,7 +11,7 @@ class DecisionTree():
     Dependiendo de los parámetros que se pasen al constructor, se pueden crear árboles
     de decisión usando dinstintos criterios de separación (ID3, C4.5 y Gini).
     """
-    def __init__(self, dataFrame, targetAttribute, trueLabel, splittingAlgorithm, maxDepth):
+    def __init__(self, dataFrame, targetAttribute, trueLabel, falseLabel, splittingAlgorithm, maxDepth):
         """
         dataFrame: pandas.DataFrame sobre el que queremos generar el árbol de decisión.
         targetAttribute: String que coincide con el nombre de la columna del dataFrame que queremos usar como objetivo del árbol de decisión.
@@ -20,6 +23,7 @@ class DecisionTree():
         self.splittingAlgorithm = splittingAlgorithm
         self.targetAttribute = targetAttribute
         self.trueLabel = trueLabel
+        self.falseLabel = falseLabel
         self.maxDepth = maxDepth
         self.rootNode = DecisionTreeNode(self, dataFrame, None, None, isRoot=True)
     
@@ -39,6 +43,20 @@ class DecisionTree():
         for childNode in childrenNodes:
             self.__build(childNode)
         return
+
+    def predict(self, dataFrame):
+        predictions = []
+        for row in range(dataFrame.shape[0]):
+            register = dataFrame.iloc[row, :]
+            actualNode = self.rootNode
+            while not actualNode.isLeaf:
+                registerValue = register[actualNode.splittingAttribute]
+                for nextNode in actualNode.childrenNodes:
+                    if nextNode.splittingValue == registerValue:
+                        actualNode = nextNode
+                        break
+            predictions.append(actualNode.prediction)
+        return predictions
 
     def visualize(self, title=""):
         """
@@ -67,3 +85,7 @@ class DecisionTree():
             for childNode in childrenNodes:
                 self.__buildVisualization(dot, currentNode, childNode)
             return
+    
+    def saveToFile(self, path):
+        print("Nothing yet")
+
