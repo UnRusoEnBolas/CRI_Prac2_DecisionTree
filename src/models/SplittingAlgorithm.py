@@ -2,6 +2,7 @@
 #ARTICULO PARA ID3: https://nulpointerexception.com/2017/12/16/a-tutorial-to-understand-decision-tree-id3-learning-algorithm/
 
 import numpy as np
+import cProfile
 
 class SplittingAlgorithm():
     """
@@ -100,6 +101,7 @@ class ID3SplittingAlgorithm(SplittingAlgorithm):
             informationGain = np.subtract(self.initialEntropy, np.sum(np.multiply(np.divide(counts, totalCount), entropies)))
             gains.append(informationGain)
         return self.dataFrame.columns[np.argmax(gains)]
+
 
 class GiniSplittingAlgorithm(SplittingAlgorithm):
     """

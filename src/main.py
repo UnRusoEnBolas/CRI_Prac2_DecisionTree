@@ -11,9 +11,11 @@ data = discretizeDataframe(data, continuousColumns, nbins)
 yColumn = 'class'
 trueValue = 1
 
-decisionTreeID3 = DecisionTree(data, yColumn, trueValue, 'ID3', maxDepth=3)
+
+print('Starting tree...')
+decisionTreeID3 = DecisionTree(data, yColumn, trueValue, 'ID3', maxDepth=1)
 decisionTreeID3.generate()
-decisionTreeID3.visualize(title="Using ID3 split criterion")
+decisionTreeID3.visualize(title="Using C4.5 split criterion")
 
 '''
 data = pd.read_csv('data/testDataset/continuousTestData.csv')
