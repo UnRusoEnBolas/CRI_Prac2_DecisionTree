@@ -16,7 +16,7 @@ class DecisionTreeNode():
         self.isLeaf = isLeaf
         self.splittingAttribute = None
         if isLeaf:
-            self.prediction = self.dataFrame[self.decisionTree.targetAttribute].unique()[0]
+            self.prediction = self.dataFrame[self.decisionTree.targetAttribute].value_counts().index[0]
         else:
             self.prediction = None
         
@@ -28,8 +28,7 @@ class DecisionTreeNode():
             self.splittingAlgorithm = GiniSplittingAlgorithm(self.dataFrame, self.decisionTree.targetAttribute, self.decisionTree.trueLabel)
 
         self.childrenNodes = []
-        self.depth = 0 if self.isRoot else self.parentNode.depth+1
-        
+        self.depth = 1 if self.isRoot else self.parentNode.depth+1
     
     def getChildrenNodes(self):
         """
@@ -43,7 +42,7 @@ class DecisionTreeNode():
         for value in possibleChoices:
             subset = self.dataFrame[self.dataFrame[splittingAttribute]==value]
             subset.drop(splittingAttribute, axis=1, inplace=True)
-            isLeaf = True if subset[self.decisionTree.targetAttribute].nunique() == 1 else False
+            isLeaf = True if subset[self.decisionTree.targetAttribute].nunique() == 1 or self.depth == self.decisionTree.maxDepth else False
             childNodes.append(DecisionTreeNode(self.decisionTree, subset, self, value, isLeaf=isLeaf))
         return childNodes
 

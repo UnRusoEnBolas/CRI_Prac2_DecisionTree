@@ -3,22 +3,27 @@ from modules.DatasetModifications import discretizeDataframe, deleteRowsWithValu
 import pandas as pd
 pd.options.mode.chained_assignment = None
 
-testDataset = pd.read_csv('data/testDataset/continuous+unknownTestData.csv')
-continuousColumns = ['Temp', 'Humidity']
+data = pd.read_csv('finalAdvertismentsDataset.csv')
+continuousColumns = ['height', 'width', 'aratio']
 nbins = 4
-testDataset = discretizeDataframe(testDataset, continuousColumns, nbins)
-testDataset = deleteRowsWithValues(testDataset, 'unknown')
-yColumn = 'Decision'
-trueValue = 'Yes'
+data = deleteRowsWithValues(data, 'unknown')
+data = discretizeDataframe(data, continuousColumns, nbins)
+yColumn = 'class'
+trueValue = 1
 
-decisionTreeID3 = DecisionTree(testDataset, yColumn, trueValue, 'ID3')
+decisionTreeID3 = DecisionTree(data, yColumn, trueValue, 'ID3', maxDepth=3)
 decisionTreeID3.generate()
 decisionTreeID3.visualize(title="Using ID3 split criterion")
 
-decisionTreeC45 = DecisionTree(testDataset, yColumn, trueValue, 'C4.5')
-decisionTreeC45.generate()
-decisionTreeC45.visualize(title="Using C4.5 split criterion")
+'''
+data = pd.read_csv('data/testDataset/continuousTestData.csv')
+continuousColumns = ['Temp', 'Humidity']
+nbins = 4
+data = discretizeDataframe(data, continuousColumns, nbins)
+yColumn = 'Decision'
+trueValue = 'Yes'
 
-decisionTreeGini = DecisionTree(testDataset, yColumn, trueValue, 'Gini')
-decisionTreeGini.generate()
-decisionTreeGini.visualize(title="Using Gini split criterion")
+decisionTreeID3 = DecisionTree(data, yColumn, trueValue, 'ID3', maxDepth=1)
+decisionTreeID3.generate()
+decisionTreeID3.visualize(title="ID3 Play tennis dataset")
+'''

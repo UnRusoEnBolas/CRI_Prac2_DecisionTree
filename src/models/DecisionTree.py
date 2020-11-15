@@ -8,17 +8,19 @@ class DecisionTree():
     Dependiendo de los parámetros que se pasen al constructor, se pueden crear árboles
     de decisión usando dinstintos criterios de separación (ID3, C4.5 y Gini).
     """
-    def __init__(self, dataFrame, targetAttribute, trueLabel, splittingAlgorithm):
+    def __init__(self, dataFrame, targetAttribute, trueLabel, splittingAlgorithm, maxDepth):
         """
         dataFrame: pandas.DataFrame sobre el que queremos generar el árbol de decisión.
         targetAttribute: String que coincide con el nombre de la columna del dataFrame que queremos usar como objetivo del árbol de decisión.
         trueLabel: String/Número/Booleano que indica de que manera representa la columna objetivo el valor positivo, por ejemplo: "Si", 1, True...
         splittingAlgorithm: String que indica que criterio de separación queremos usar: "ID3", "C4.5", "Gini".
+        maxDepth: Número entero que determina la profundidad máxima del árbol.
         """
         self.dataFrame = dataFrame
         self.splittingAlgorithm = splittingAlgorithm
         self.targetAttribute = targetAttribute
         self.trueLabel = trueLabel
+        self.maxDepth = maxDepth
         self.rootNode = DecisionTreeNode(self, dataFrame, None, None, isRoot=True)
     
     def generate(self):

@@ -20,4 +20,5 @@ def deleteRowsWithValues(dataframe, value):
     """
     for column in dataframe.columns:
         dataframe = dataframe[dataframe[column] != value]
+        dataframe[column] = dataframe[column].astype("float64")
     return dataframe
