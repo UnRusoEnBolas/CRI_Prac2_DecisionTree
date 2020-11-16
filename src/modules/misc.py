@@ -1,3 +1,4 @@
+from numpy.core.fromnumeric import partition
 import pandas as pd
 
 def discretizeDataframe(dataframe, columns, n_bins):
@@ -36,3 +37,21 @@ def train_test_split(dataframe, testRatio):
     train = dataframe.iloc[0:nTrainInstances, :]
     test = dataframe.iloc[nTrainInstances:nTrainInstances+nTestInstances, :]
     return train, test
+
+def getKfoldSubsets(dataframe, k):
+    """
+    Esta función sirve para generar las particiones de kfold deseadas.
+    dataframe: Dataframe de pandas que contiene todos los registros.
+    k: Número de particiones deseadas.
+    Devuelve k dataframes.
+    """
+    nInstances = dataframe.shape[0]
+    print(nInstances)
+    partitionInstances = int(round(nInstances/k))
+    if partitionInstances*k > nInstances: partitionInstances -= 1
+    dataframe = dataframe.sample(n=nInstances, random_state=0).reset_index(drop=True)
+    subsets = []
+    for i in range(k):
+        subset = dataframe.iloc[partitionInstances*i:partitionInstances*i+partitionInstances, :]
+        subsets.append(subset)
+    return subsets

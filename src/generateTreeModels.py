@@ -12,7 +12,7 @@ falseValue = 0.0
 
 """
 Creamos modelos con distintas profundidades máximas para poder decidir
-qué hiperparámetrod e profundiad máxima nos conviene.
+qué hiperparámetro de profundiad máxima nos conviene.
 """
 for model in ['ID3', 'Gini', 'C4.5']:
     for maxDepth in [3, 5, 7, 9, 11, 13, 15]:

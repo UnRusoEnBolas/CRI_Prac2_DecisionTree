@@ -25,8 +25,7 @@ class DecisionTree():
         self.maxDepth = maxDepth
         self.rootNode = DecisionTreeNode(self, dataFrame, None, None, isRoot=True)
 
-    def fromJSON(self, fileName):
-        path = f'./outputs/modelsOutputs/{fileName}.json'
+    def fromJSON(self, path):
         file = open(path ,'r')
         treeDict = json.load(file)
         file.close()
