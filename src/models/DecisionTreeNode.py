@@ -5,7 +5,7 @@ class DecisionTreeNode():
     """
     Clase que implementa cada uno de los nodos de los árboles de decisión.
     """
-    def __init__(self, decisionTree, dataFrame, parentNode, splittingValue, isRoot=False, isLeaf=False):
+    def __init__(self, decisionTree = None, dataFrame = None, parentNode = None, splittingValue = None, isRoot=False, isLeaf=False):
         self.uuid = str(uuid.uuid4())
         self.decisionTree = decisionTree
         self.dataFrame = dataFrame
@@ -20,7 +20,9 @@ class DecisionTreeNode():
         else:
             self.prediction = None
         
-        if decisionTree.splittingAlgorithm == "ID3":
+        if decisionTree == None or decisionTree.splittingAlgorithm == None:
+            self.splittingAlgorithm = None
+        elif decisionTree.splittingAlgorithm == "ID3":
             self.splittingAlgorithm = ID3SplittingAlgorithm(self.dataFrame, self.decisionTree.targetAttribute, self.decisionTree.trueLabel)
         elif decisionTree.splittingAlgorithm == "C4.5":
             self.splittingAlgorithm = C4_5SplittingAlgorithm(self.dataFrame, self.decisionTree.targetAttribute, self.decisionTree.trueLabel)
@@ -28,8 +30,28 @@ class DecisionTreeNode():
             self.splittingAlgorithm = GiniSplittingAlgorithm(self.dataFrame, self.decisionTree.targetAttribute, self.decisionTree.trueLabel)
 
         self.childrenNodes = []
-        self.depth = 1 if self.isRoot else self.parentNode.depth+1
+        try:
+            self.depth = 1 if self.isRoot else self.parentNode.depth+1
+        except: 
+            self.depth = None
     
+    def fromDict(self, nodeDict, parentNode):
+        self.uuid = nodeDict['uuid'] if nodeDict['uuid'] else None
+        self.parentNode = parentNode
+        self.depth = nodeDict['depth'] if nodeDict['depth'] else None
+        self.splittingAttribute = nodeDict['splittingAttirbute'] if 'splittingAttirbute' in nodeDict else None
+        self.splittingValue = nodeDict['splittingValue'] if 'splittingValue' in nodeDict else None
+        self.isRoot = True if parentNode == None else False
+        self.isLeaf = nodeDict['isLeaf']
+        self.childrenNodes = []
+        if not self.isLeaf:
+            for childDict in nodeDict['children']:
+                self.childrenNodes.append(DecisionTreeNode().fromDict(childDict, self))
+        self.prediction = nodeDict['prediction']
+        return self
+
+
+
     def getChildrenNodes(self):
         """
         Método que devuelve los DecisionTreeNode descendientes del actual. (Si el actual es un nodo hoja
@@ -60,6 +82,7 @@ class DecisionTreeNode():
         node['children'] = []
         if self.isLeaf:
             node['isLeaf'] = True
+            node['prediction'] = self.prediction
             return node
         else:
             node['isLeaf'] = False

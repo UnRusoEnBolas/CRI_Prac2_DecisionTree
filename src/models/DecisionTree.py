@@ -10,7 +10,7 @@ class DecisionTree():
     Dependiendo de los parámetros que se pasen al constructor, se pueden crear árboles
     de decisión usando dinstintos criterios de separación (ID3, C4.5 y Gini).
     """
-    def __init__(self, dataFrame, targetAttribute, trueLabel, falseLabel, splittingAlgorithm, maxDepth):
+    def __init__(self, dataFrame = None, targetAttribute = None, trueLabel = None, falseLabel = None, splittingAlgorithm = None, maxDepth = None):
         """
         dataFrame: pandas.DataFrame sobre el que queremos generar el árbol de decisión.
         targetAttribute: String que coincide con el nombre de la columna del dataFrame que queremos usar como objetivo del árbol de decisión.
@@ -25,6 +25,14 @@ class DecisionTree():
         self.falseLabel = falseLabel
         self.maxDepth = maxDepth
         self.rootNode = DecisionTreeNode(self, dataFrame, None, None, isRoot=True)
+
+    def fromJSON(self, fileName):
+        path = f'./outputs/modelsOutputs/{fileName}.json'
+        file = open(path ,'r')
+        treeDict = json.load(file)
+        file.close()
+        self.rootNode = DecisionTreeNode().fromDict(treeDict, None)
+        return self
     
     def generate(self):
         """
@@ -85,7 +93,8 @@ class DecisionTree():
             dot.edge(previousNode.uuid, currentNode.uuid, label=str(currentNode.splittingValue))
             return
         else:
-            childrenNodes = currentNode.getChildrenNodes()
+            #childrenNodes = currentNode.getChildrenNodes()
+            childrenNodes = currentNode.childrenNodes
             dot.node(currentNode.uuid, str(currentNode.splittingAttribute), shape="box")
             dot.edge(previousNode.uuid, currentNode.uuid, label=str(currentNode.splittingValue))
             for childNode in childrenNodes:
