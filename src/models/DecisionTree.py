@@ -4,8 +4,6 @@ from graphviz import Digraph
 import uuid
 import json
 
-from models.SplittingAlgorithm import SplittingAlgorithm
-
 class DecisionTree():
     """
     Esta es la clase que implementa los arboles de decisión i permite visualizarlos.
@@ -46,6 +44,10 @@ class DecisionTree():
         return
 
     def predict(self, dataFrame):
+        """
+        Método que recive por parámetro un dataframe con un número indeterminado de registros
+        y devuelve una matriz con cada una de las predicciones del árbol para esos registros.
+        """
         predictions = []
         for row in range(dataFrame.shape[0]):
             register = dataFrame.iloc[row, :]
@@ -59,18 +61,21 @@ class DecisionTree():
             predictions.append(actualNode.prediction)
         return predictions
 
-    def visualize(self, title=""):
+    def visualize(self, title):
         """
         Renderiza un PNG con la estructura final del árbol de decisión.
-        title: Parámetro opcional al que se le puede pasar un String para que se use como título de la imagen en
-        la parte inferior del PNG.
+        title: Parámetro al que se le pasa un String para que se use como título de la imagen en
+        la parte inferior del PNG y como nombre del archivo generado.
         """
         dot = Digraph(comment="Graphic representation of the resulting decision tree", format='png')
         dot.attr(label=title)
         self.__buildVisualization(dot, None, self.rootNode)
-        dot.render(f'./outputs/graphOutputs/{str(uuid.uuid4())}.gv', view=True)
+        dot.render(f'./outputs/graphOutputs/{title}.gv', view=True)
 
     def __buildVisualization(self, dot, previousNode, currentNode):
+        """
+        Método (privado) recursivo que genera la visualización del árbol.
+        """
         if currentNode.isRoot:
             dot.node(currentNode.uuid, str(currentNode.splittingAttribute), shape="box")
             for childNode in currentNode.childrenNodes:
@@ -88,6 +93,11 @@ class DecisionTree():
             return
     
     def saveToFile(self, fileName):
+        """
+        Método que inicia una recursión por cada nodo para convertirlo en formato JSON para poder
+        guardar el árbol en un fichero de texto y poder cargarlo posteriormente.
+        Guarda el JSON generado en la ruta ./outputs/modelsOutputs/<parámetro fileName>.json.
+        """
         file = open(f'./outputs/modelsOutputs/{fileName}.json', 'w+')
         json.dump(self.rootNode.toJSON(), file)
         file.close()

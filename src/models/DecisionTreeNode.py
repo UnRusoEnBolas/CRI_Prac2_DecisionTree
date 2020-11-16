@@ -3,7 +3,7 @@ import uuid
 
 class DecisionTreeNode():
     """
-    Classe que implementa cada uno de los nodos de los árboles de decisión.
+    Clase que implementa cada uno de los nodos de los árboles de decisión.
     """
     def __init__(self, decisionTree, dataFrame, parentNode, splittingValue, isRoot=False, isLeaf=False):
         self.uuid = str(uuid.uuid4())
@@ -47,6 +47,10 @@ class DecisionTreeNode():
         return childNodes
 
     def toJSON(self):
+        """
+        Método que convierte en JSON el nodo del árbol para poder guardarlo en fichero JSON y
+        posteriormente cargarlo.
+        """
         node = {}
         node['uuid'] = str(self.uuid)
         node['depth'] = self.depth
