@@ -1,7 +1,6 @@
 import numpy as np
 from models.DecisionTreeNode import DecisionTreeNode
 from graphviz import Digraph
-import uuid
 import json
 
 class DecisionTree():
@@ -61,11 +60,14 @@ class DecisionTree():
             register = dataFrame.iloc[row, :]
             actualNode = self.rootNode
             while not actualNode.isLeaf:
+                match = False
                 registerValue = register[actualNode.splittingAttribute]
                 for nextNode in actualNode.childrenNodes:
-                    if nextNode.splittingValue == registerValue:
+                    if nextNode.splittingValue == str(registerValue):
                         actualNode = nextNode
+                        match = True
                         break
+                if not match: actualNode = actualNode.childrenNodes[0]
             predictions.append(actualNode.prediction)
         return predictions
 
@@ -93,7 +95,6 @@ class DecisionTree():
             dot.edge(previousNode.uuid, currentNode.uuid, label=str(currentNode.splittingValue))
             return
         else:
-            #childrenNodes = currentNode.getChildrenNodes()
             childrenNodes = currentNode.childrenNodes
             dot.node(currentNode.uuid, str(currentNode.splittingAttribute), shape="box")
             dot.edge(previousNode.uuid, currentNode.uuid, label=str(currentNode.splittingValue))

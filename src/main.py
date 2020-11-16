@@ -3,5 +3,17 @@ import pandas as pd
 from sklearn.metrics import classification_report
 pd.options.mode.chained_assignment = None
 
-tree = DecisionTree().fromJSON('C4.5_maxDepth3')
-tree.visualize("First try for saved tree")
+
+testData = pd.read_csv('./data/test.csv')
+
+tree = DecisionTree().fromJSON('C4.5_maxDepth15')
+predictions = tree.predict(testData)
+print(classification_report(testData['class'], predictions))
+print('\n')
+tree = DecisionTree().fromJSON('ID3_maxDepth15')
+predictions = tree.predict(testData)
+print(classification_report(testData['class'], predictions))
+print('\n')
+tree = DecisionTree().fromJSON('Gini_maxDepth15')
+predictions = tree.predict(testData)
+print(classification_report(testData['class'], predictions))

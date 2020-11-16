@@ -36,6 +36,10 @@ class DecisionTreeNode():
             self.depth = None
     
     def fromDict(self, nodeDict, parentNode):
+        """
+        Método que construye un DecisionTreeNode desde un diccionario de python. (Se usa cuando
+        se quieren generar los nodos de un árbol guardado en ficheor JSON)
+        """
         self.uuid = nodeDict['uuid'] if nodeDict['uuid'] else None
         self.parentNode = parentNode
         self.depth = nodeDict['depth'] if nodeDict['depth'] else None
@@ -47,7 +51,7 @@ class DecisionTreeNode():
         if not self.isLeaf:
             for childDict in nodeDict['children']:
                 self.childrenNodes.append(DecisionTreeNode().fromDict(childDict, self))
-        self.prediction = nodeDict['prediction']
+        self.prediction = nodeDict['prediction'] if nodeDict["isLeaf"] else None
         return self
 
 
