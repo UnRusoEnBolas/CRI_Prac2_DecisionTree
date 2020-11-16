@@ -30,7 +30,7 @@ for model in ['ID3', 'Gini', 'C4.5']:
 """
 Modelos K-FOLD
 """
-MAX_DEPTH = 1
+MAX_DEPTH = 15
 
 kfoldPartitions = []
 for i in range (1, 6):

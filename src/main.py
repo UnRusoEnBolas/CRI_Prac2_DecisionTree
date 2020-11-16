@@ -1,3 +1,4 @@
+"""
 from models.DecisionTree import DecisionTree
 import pandas as pd
 from sklearn.metrics import classification_report
@@ -17,3 +18,4 @@ print('\n')
 tree = DecisionTree().fromJSON('Gini_maxDepth15')
 predictions = tree.predict(testData)
 print(classification_report(testData['class'], predictions))
+"""
