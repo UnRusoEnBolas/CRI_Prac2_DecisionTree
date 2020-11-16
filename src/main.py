@@ -4,7 +4,6 @@ import pandas as pd
 from sklearn.metrics import classification_report
 pd.options.mode.chained_assignment = None
 
-'''
 data = pd.read_csv('finalAdvertismentsDataset.csv')
 yColumnName = 'class'
 trueValue = 1
@@ -15,13 +14,13 @@ data = deleteRowsWithValues(data, 'unknown')
 data = discretizeDataframe(data, continuousColumns, nbins)
 trainData, testData = train_test_split(data, 0.35)
 
-tree1 = DecisionTree(trainData, yColumnName, trueValue, falseValue, 'ID3', maxDepth=5)
-tree1.generate()
-tree1.visualize(title="Using ID3 split criterion")
-predictions = tree1.predict(testData)
-
-print(classification_report(testData[yColumnName], predictions))
-'''
+for model in ['ID3', 'Gini', 'C4.5']:
+    for maxDepth in ['3','4','5','6','7','8','9','10']:
+        print(f'Progress: Model -> {model} with maximum depth: {maxDepth}')
+        tree = DecisionTree(trainData, yColumnName, trueValue, falseValue, model, maxDepth=maxDepth)
+        tree.generate()
+        tree.saveToFile(f'{model}_maxDepth{maxDepth}')
+    print('\n')
 
 '''
 tree2 = DecisionTree(trainData, yColumn, trueValue, 'C4.5', maxDepth=5)
@@ -47,9 +46,8 @@ print(f'Registros de train: {trainData.shape}, registros de test: {testData.shap
 
 decisionTreeID3 = DecisionTree(data, yColumn, trueValue, falseValue, 'ID3', maxDepth=2)
 decisionTreeID3.generate()
-decisionTreeID3.visualize(title="ID3 Play tennis dataset")
+#decisionTreeID3.visualize(title="ID3 Play tennis dataset")
 predictions = decisionTreeID3.predict(testData)
-
 
 print(classification_report(testData[yColumn], predictions))
 decisionTreeID3.saveToFile('ID3PlayTennisDepth2')

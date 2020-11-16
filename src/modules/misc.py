@@ -32,7 +32,7 @@ def train_test_split(dataframe, testRatio):
     nInstances = dataframe.shape[0]
     nTestInstances = int(round(nInstances*testRatio))
     nTrainInstances = nInstances - nTestInstances
-    dataframe = dataframe.sample(n=nInstances).reset_index(drop=True)
+    dataframe = dataframe.sample(n=nInstances, random_state=0).reset_index(drop=True)
     train = dataframe.iloc[0:nTrainInstances, :]
     test = dataframe.iloc[nTrainInstances:nTrainInstances+nTestInstances, :]
     return train, test
