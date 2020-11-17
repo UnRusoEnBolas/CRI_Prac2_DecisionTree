@@ -70,16 +70,15 @@ class DecisionTree():
             predictions.append(actualNode.prediction)
         return predictions
 
-    def visualize(self, title):
+    def visualize(self, fileName):
         """
         Renderiza un PNG con la estructura final del árbol de decisión.
         title: Parámetro al que se le pasa un String para que se use como título de la imagen en
         la parte inferior del PNG y como nombre del archivo generado.
         """
         dot = Digraph(comment="Graphic representation of the resulting decision tree", format='png')
-        dot.attr(label=title)
         self.__buildVisualization(dot, None, self.rootNode)
-        dot.render(f'./outputs/graphOutputs/{title}.gv', view=True)
+        dot.render(f'{fileName}.gv', view=True)
 
     def __buildVisualization(self, dot, previousNode, currentNode):
         """
